@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<GameLevel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <stringEngName />
+  <stringPolName />
+  <intLevelWidthX>5</intLevelWidthX>
+  <intLevelHeightY>5</intLevelHeightY>
+  <colorTilesNeutral>
+    <colR>0</colR>
+    <colG>0</colG>
+    <colB>0</colB>
+  </colorTilesNeutral>
+  <colorBackground>
+    <colR>0</colR>
+    <colG>0</colG>
+    <colB>0</colB>
+  </colorBackground>
+  <colorMarker>
+    <colR>0</colR>
+    <colG>0</colG>
+    <colB>0</colB>
+  </colorMarker>
+  <listPossibleColorsOfTiles />
+  <listLevelTilesOrder />
+  <listVerticlaNumbersHints />
+  <listHorizontalNumberHints />
+</GameLevel>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<MultiLevelMenager xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <stringAllLevelsEngName>New level</stringAllLevelsEngName>
+  <stringAllLevelsPolName>Nowy poziom</stringAllLevelsPolName>
+  <intTotalLevelWidthX>15</intTotalLevelWidthX>
+  <intTotalLevelHeightY>10</intTotalLevelHeightY>
+  <byteSingleWidthX>5</byteSingleWidthX>
+  <byteSingleHeightY>5</byteSingleHeightY>
+  <intCountPartsWidthX>3</intCountPartsWidthX>
+  <intCountPartsHeightY>2</intCountPartsHeightY>
+  <byteLastWidthX>5</byteLastWidthX>
+  <byteLastHeightY>5</byteLastHeightY>
+  <listLevelToPlay>
+    <InofAboutToPlay>
+      <indexX>0</indexX>
+      <indexY>0</indexY>
+      <isToPlay>false</isToPlay>
+    </InofAboutToPlay>
+    <InofAboutToPlay>
+      <indexX>0</indexX>
+      <indexY>1</indexY>
+      <isToPlay>true</isToPlay>
+    </InofAboutToPlay>
+    <InofAboutToPlay>
+      <indexX>1</indexX>
+      <indexY>0</indexY>
+      <isToPlay>true</isToPlay>
+    </InofAboutToPlay>
+    <InofAboutToPlay>
+      <indexX>1</indexX>
+      <indexY>1</indexY>
+      <isToPlay>false</isToPlay>
+    </InofAboutToPlay>
+    <InofAboutToPlay>
+      <indexX>2</indexX>
+      <indexY>0</indexY>
+      <isToPlay>true</isToPlay>
+    </InofAboutToPlay>
+    <InofAboutToPlay>
+      <indexX>2</indexX>
+      <indexY>1</indexY>
+      <isToPlay>true</isToPlay>
+    </InofAboutToPlay>
+  </listLevelToPlay>
+</MultiLevelMenager>
