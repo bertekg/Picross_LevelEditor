@@ -1,0 +1,203 @@
+﻿<UserControl x:Class="Picross_LevelEditor.MultiLevelTabView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Picross_LevelEditor"
+             mc:Ignorable="d" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:p="clr-namespace:Picross_LevelEditor.Languages"
+             d:DesignHeight="600" d:DesignWidth="800">
+    <TabControl Name="tcMain">
+        <TabItem Header="Main">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="240"/>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="Basic info about level">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <GroupBox Header="Name">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock Grid.Row="0" Grid.Column="0" Text="English" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                        <TextBox Name="tbAllLevelNameEng" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+                                        <TextBlock Grid.Row="1" Grid.Column="0" Text="Polish" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                        <TextBox Name="tbAllLevelNamePol" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                                    </Grid>
+                                </GroupBox>
+                                <GroupBox Header="New level dimensions" Grid.Row="1">
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                            <RowDefinition Height="Auto"/>
+                                        </Grid.RowDefinitions>
+                                        <GroupBox Header="Total level dimension" Grid.Row="0">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Widht" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                                <xctk:IntegerUpDown Name="iudTotalLevelWidthX" Value="2" Minimum="1" Grid.Column="1" VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Height" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                                <xctk:IntegerUpDown Name="iudTotalLevelHeightY" Value="2" Minimum="1" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </GroupBox>
+                                        <GroupBox Header="Single level dimension" Grid.Row="1">
+                                            <Grid>
+                                                <Grid.RowDefinitions>
+                                                    <RowDefinition Height="Auto"/>
+                                                    <RowDefinition Height="Auto"/>
+                                                </Grid.RowDefinitions>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Width" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                                <xctk:ByteUpDown Name="budSingleLevelWidthXBasic" Value="2" Minimum="1" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Height" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                                <xctk:ByteUpDown Name="budSingleLevelHeightYBasic" Value="2" Minimum="1" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </GroupBox>
+                                        <Button Name="bGenereteNewLevel" Content="Generete New level" Grid.Row="2" Padding="5" Margin="5" HorizontalAlignment="Center" Click="bGenereteNewLevel_Click"/>
+                                    </Grid>                                   
+                                </GroupBox>
+                                <GroupBox Header="Current level dimesions" Grid.Row="2">
+                                    <GroupBox Header="Dimension of single part of level" Grid.Row="2">
+                                        <Grid>
+                                            <Grid.RowDefinitions>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                                <RowDefinition Height="Auto"/>
+                                            </Grid.RowDefinitions>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Total width" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                            <TextBox Name="tbCurrTotalLevelWidthX" Grid.Row="0" Grid.Column="1" VerticalAlignment="Center" IsReadOnly="True"/>
+                                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Total height" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                            <TextBox Name="tbCurrTotalLevelHeightY" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" IsReadOnly="True"/>
+                                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Single width" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                            <TextBox Name="tbCurrSingleLevelWidthX" Grid.Row="2" Grid.Column="1" VerticalAlignment="Center" IsReadOnly="True"/>
+                                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Single height" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                            <TextBox Name="tbCurrSingleLevelHeightY" Grid.Row="3" Grid.Column="1" VerticalAlignment="Center" IsReadOnly="True"/>
+                                            <TextBlock Grid.Row="4" Grid.Column="0" Text="Count of single in X" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                            <TextBox Name="tbCurrSingleLevelWidthXCount" Grid.Row="4" Grid.Column="1" VerticalAlignment="Center" IsReadOnly="True"/>
+                                            <TextBlock Grid.Row="5" Grid.Column="0" Text="Count of single in Y" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                            <TextBox Name="tbCurrSingleLevelHeightYCount" Grid.Row="5" Grid.Column="1" VerticalAlignment="Center" IsReadOnly="True"/>
+                                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Last single width" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                            <TextBox Name="tbCurrLastSingleWidthX" Grid.Row="6" Grid.Column="1" VerticalAlignment="Center" IsReadOnly="True"/>
+                                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Last single height" HorizontalAlignment="Right"  VerticalAlignment="Center"/>
+                                            <TextBox Name="tbCurrLastSingleHeightY" Grid.Row="7" Grid.Column="1" VerticalAlignment="Center" IsReadOnly="True"/>                                            
+                                        </Grid>
+                                    </GroupBox>
+                                </GroupBox>                                
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="Selecton mode" Grid.Row="1">
+                            <WrapPanel Orientation="Horizontal">
+                                <Border Name="borderEdit" Tag="Edit" BorderBrush="Lime" BorderThickness="5" Margin="5">
+                                    <Button Name="buttonEdit" Content="Edit" Padding="5" Click="ButtonEdit_Click"/>
+                                </Border>
+                                <Border Name="borderActivDeactive" Tag="ActivDeactive" BorderBrush="White" BorderThickness="5" Margin="5">
+                                    <Button Name="buttonActivDeactive" Content="Acive/Deactive" Padding="5" Click="ButtonActivDeactive_Click"/>
+                                </Border>
+                                <Button Name="buttonGenerateView" Content="Generate View" Click="buttonGenerateView_Click"/>
+                            </WrapPanel>
+                        </GroupBox>                        
+                    </Grid>
+                </ScrollViewer>
+                <GridSplitter HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="1" ResizeBehavior="PreviousAndNext" Width="5"/>
+                <Grid Grid.Column="2">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Viewbox Name="vPlaceAllCells" Stretch="Uniform">
+                        <Grid Name="gPlacePart" HorizontalAlignment="Stretch" Background="Gray">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="50"/>
+                                <RowDefinition Height="50"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="50"/>
+                                <ColumnDefinition Width="50"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Grid.Row="0" Grid.Column="0" BorderThickness="4" BorderBrush="Green">
+                                <Rectangle Fill="Red"/>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="1" BorderThickness="4" BorderBrush="Red">
+                                <Rectangle Fill="Yellow"/>
+                            </Border>
+                            <Border Grid.Row="0" Grid.Column="2" BorderThickness="4" BorderBrush="Green">
+                                <Rectangle Fill="Blue"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="0" BorderThickness="4" BorderBrush="Red">
+                                <Rectangle Fill="Green"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="1" BorderThickness="4" BorderBrush="Green">
+                                <Rectangle Fill="Cyan"/>
+                            </Border>
+                            <Border Grid.Row="1" Grid.Column="2" BorderThickness="4" BorderBrush="Green">
+                                <Rectangle Fill="Purple" Grid.Row="1"/>
+                            </Border>
+                        </Grid>
+                    </Viewbox>
+                    <GroupBox Header="Legend" Grid.Row="1">
+                        <WrapPanel Orientation="Horizontal">
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderBrush="Green" Height="40" Width="40" BorderThickness="5"/>
+                                <TextBlock Text="Active" Grid.Column="1" VerticalAlignment="Center" Margin="5"/>
+                            </Grid>
+                            <Grid Margin="10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Border BorderBrush="Red" Height="40" Width="40" BorderThickness="5"/>
+                                <TextBlock Text="Deactive" Grid.Column="1" VerticalAlignment="Center" Margin="5"/>
+                            </Grid>
+                        </WrapPanel>
+                    </GroupBox>
+                </Grid>
+            </Grid>
+        </TabItem>
+    </TabControl>
+</UserControl>

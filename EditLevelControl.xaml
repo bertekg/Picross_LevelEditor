@@ -1,0 +1,201 @@
+﻿<UserControl x:Class="Picross_LevelEditor.EditLevelControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Picross_LevelEditor"
+             mc:Ignorable="d" 
+             xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+             xmlns:p="clr-namespace:Picross_LevelEditor.Languages"
+             d:DesignHeight="720" d:DesignWidth="1280">
+    <Grid Name="gMainGrid"  Grid.Row="2">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="240"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="260"/>
+        </Grid.ColumnDefinitions>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+                <GroupBox Header="{x:Static p:Lang.sBasicLevelSettings}">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <GroupBox Header="{x:Static p:Lang.sLevelNames}">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="{x:Static p:Lang.sEnglish}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                <TextBox Name="tbEnglishLevelName" Text="" Grid.Column="1" VerticalAlignment="Center"/>
+                                <Label Content="{x:Static p:Lang.sPolish}" HorizontalAlignment="Right" Grid.Row="1" VerticalAlignment="Center"/>
+                                <TextBox Name="tbPolishLevelName" Text="" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center"/>
+                            </Grid>
+                        </GroupBox>
+                        <GroupBox Header="{x:Static p:Lang.sLevelDimension}" Grid.Row="1">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="{x:Static p:Lang.sWidth_InBracketX}" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                <xctk:ByteUpDown Name="budLevelWidthX" Value="2" Minimum="1" Maximum="50" Grid.Column="1" VerticalAlignment="Center" ValueChanged="BudLevelWidthX_ValueChanged"/>
+                                <Label Content="{x:Static p:Lang.sHeight_InBracketY}" Grid.Row="1" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                                <xctk:ByteUpDown Name="budLevelHeightY" Value="3" Minimum="1" Maximum="50" Grid.Row="1" Grid.Column="1" VerticalAlignment="Center" ValueChanged="BudLevelHeightY_ValueChanged"/>
+                            </Grid>
+                        </GroupBox>
+                        <Grid Grid.Row="2">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="{x:Static p:Lang.sTilesNaturalColor}"/>
+                            <xctk:ColorPicker Name="cpTilesNaturalColor" SelectedColor="White" DisplayColorAndName="True" Grid.Column="1" VerticalAlignment="Center" SelectedColorChanged="CpTilesNaturalColor_SelectedColorChanged"/>
+                            <Label Content="{x:Static p:Lang.sBackgroundColor}" Grid.Row="1"/>
+                            <xctk:ColorPicker Name="cpBackgroundColor" Grid.Row="1" SelectedColor="Gray" DisplayColorAndName="True" Grid.Column="1" VerticalAlignment="Center" SelectedColorChanged="CpBackgroundColor_SelectedColorChanged"/>
+                            <Label Content="{x:Static p:Lang.sMarkerColor}" Grid.Row="2"/>
+                            <xctk:ColorPicker Name="cpMarkerColor" Grid.Row="2" SelectedColor="Gray" DisplayColorAndName="True" Grid.Column="1" VerticalAlignment="Center" SelectedColorChanged="CpMarkerColor_SelectedColorChanged"/>
+                        </Grid>
+                    </Grid>
+                </GroupBox>
+            </Grid>
+        </ScrollViewer>
+        <GridSplitter HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="1" ResizeBehavior="PreviousAndNext" Width="5"/>
+        <Viewbox Name="vPlaceAllCells" Grid.Column="2" Stretch="Uniform">
+            <Grid Name="gMainPlaceGrid" HorizontalAlignment="Stretch" Background="Gray" ShowGridLines="True">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="20"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="20"/>
+                    <ColumnDefinition Width="20"/>
+                </Grid.ColumnDefinitions>
+                <Rectangle Fill="Red"/>
+                <Rectangle Fill="Yellow" Grid.Column="1"/>
+                <Rectangle Fill="Blue" Grid.Row="1"/>
+                <Rectangle Fill="Green" Grid.Row="1" Grid.Column="1"/>
+                <Rectangle Fill="Cyan" Grid.Row="2"/>
+                <Rectangle Fill="Purple" Grid.Row="2" Grid.Column="1"/>
+            </Grid>
+        </Viewbox>
+        <TabControl Name="tbMultiplePanel" Grid.Column="2"  Visibility="Hidden">
+            <TabItem Header="General">
+                <Label Content="Content goes here..." />
+            </TabItem>
+            <TabItem Header="Security" />
+            <TabItem Header="Details" />
+        </TabControl>
+        <GridSplitter HorizontalAlignment="Right" VerticalAlignment="Stretch" Grid.Column="3" ResizeBehavior="PreviousAndNext" Width="5"/>
+        <Grid Grid.Column="4">
+            <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <GroupBox Header="{x:Static p:Lang.sUsedColors}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Name="gUseColors">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="1" VerticalAlignment="Center" HorizontalAlignment="Right"/>
+                                <xctk:ColorPicker SelectedColor="Black" DisplayColorAndName="True" Grid.Column="1" VerticalAlignment="Bottom" Margin="0,0,0.4,7.6"/>
+                                <Button Content="X" Grid.Column="2" Margin="5" Padding="5" VerticalAlignment="Center"/>
+                            </Grid>
+                            <Button Name="buttonAddNewColorPicker" Content="{x:Static p:Lang.sAddNewColor}" Grid.Row="1" HorizontalAlignment="Center" Click="buttonAddNewColorPicker_Click"/>
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox Header="{x:Static p:Lang.sSelectMode}" Grid.Row="1">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <WrapPanel Name="wrapPanelColorsToSelect">
+                                <Border Name="bSampleSelectMode" Tag="1" BorderBrush="White" BorderThickness="5">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto"/>
+                                            <ColumnDefinition Width="Auto"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Label Content="1" VerticalAlignment="Center"/>
+                                        <Rectangle Grid.Column="1" Height="32" Width="32">
+                                            <Rectangle.Fill>
+                                                <SolidColorBrush Color="Black"/>
+                                            </Rectangle.Fill>
+                                        </Rectangle>
+                                    </Grid>
+                                </Border>
+                            </WrapPanel>
+                            <Border Name="buttonDeleteTilleMode" Tag="0" Grid.Row="1" BorderBrush="White" BorderThickness="5" HorizontalAlignment="Left" MouseLeftButtonDown="EditModeChange_MouseLeftButtonDown"  MouseRightButtonDown="EditModeChange_MouseRightButtonDown">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Label Content="{x:Static p:Lang.sClearColorOfTile}" VerticalAlignment="Center" VerticalContentAlignment="Center" Height="32"/>
+                                </Grid>
+                            </Border>
+                        </Grid>
+                    </GroupBox>
+                    <!--<GroupBox Header="Added cells" Grid.Row="2">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                
+                                <Grid Grid.Row="1">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Button Name="bShowCellsInformation" HorizontalAlignment="Center" Content="CellsInformation" Grid.Column="0" Margin="5"/>
+                                    <Button HorizontalAlignment="Center" Content="{x:Static p:Lang.sDeletaAllCells}" Grid.Column="1" Margin="5"/>
+                                </Grid>
+                                <ListView Name="lvUsers" Grid.Row="1" Visibility="Collapsed">
+                                    <ListView.View>
+                                        <GridView>
+                                            <GridViewColumn Header="{x:Static p:Lang.sPositionX}" Width="Auto" DisplayMemberBinding="{Binding Key.X}" />
+                                            <GridViewColumn Header="{x:Static p:Lang.sPositionY}" Width="Auto" DisplayMemberBinding="{Binding Key.Y}" />
+                                            <GridViewColumn Header="{x:Static p:Lang.sColorId}" Width="Auto" DisplayMemberBinding="{Binding Value}" />
+                                        </GridView>
+                                    </ListView.View>
+                                </ListView>
+                            </Grid>
+                        </GroupBox>-->
+                </Grid>
+            </ScrollViewer>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -1,0 +1,131 @@
+﻿<Window x:Class="Picross_LevelEditor.CellsInformation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Picross_LevelEditor"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:p="clr-namespace:Picross_LevelEditor.Languages"
+        mc:Ignorable="d"
+        Title="Level Detail" Icon="Graphics/Icon_LevelEditor_128.png" Width="1280" Height="720" WindowState="Maximized">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="5"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+            <GroupBox Header="Level Dimention">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Width" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Height" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBlock Text="Total" Grid.Row="0" Grid.Column="4" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBox Name="tbLevelWidth" Text="5" Grid.Row="1" Grid.Column="0" IsReadOnly="True" TextAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Text="x" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBox Name="tbLevelHeight" Text="5" Grid.Row="1" Grid.Column="2" IsReadOnly="True" TextAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Text="=" Grid.Row="1" Grid.Column="3" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <TextBox Name="tbLevelTotalCells" Text="25" Grid.Row="1" Grid.Column="4" IsReadOnly="True" TextAlignment="Center" VerticalAlignment="Center" Margin="5"/>
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Statistic of Level" Grid.Row="1">
+                <Grid Grid.Row="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="All filled cells in level" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Name="tbLevelFilledAllCellsCount" Text="6" Grid.Row="0" Grid.Column="1" IsReadOnly="True" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Text="All filled cells in view" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Name="tbLevelFilledViewCellsCount" Text="5" Grid.Row="1" Grid.Column="1" IsReadOnly="True" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Text="All filled cells outside view" Grid.Row="2" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Name="tbLevelFilledOutsideViewCellsCount" Text="1" Grid.Row="2" Grid.Column="1" IsReadOnly="True" VerticalAlignment="Center" Margin="5"/>
+                    <TextBlock Text="Procent of filled cells in view" Grid.Row="3" Grid.Column="0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+                    <TextBox Name="tbLevelFilledViewInPrecent" Text="20%" Grid.Row="3" Grid.Column="1" IsReadOnly="True" VerticalAlignment="Center" Margin="5"/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        
+        <GridSplitter Grid.Column="1" Width="5" HorizontalAlignment="Stretch" />
+        <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <ListView Name="lvCellsWithColors">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="{x:Static p:Lang.sColorId}" Width="Auto" DisplayMemberBinding="{Binding colId}" />
+                        <!--<GridViewColumn Header="Color in RGB" Width="Auto" DisplayMemberBinding="{Binding colName}" />-->
+                        <GridViewColumn Header="Color name" Width="Auto">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <xctk:ColorPicker SelectedColor="{Binding colName}" IsEnabled="False" DisplayColorAndName="True" ShowDropDownButton="False"/>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Header="Total cells with color" Width="Auto" DisplayMemberBinding="{Binding countOfCol}" />
+                        <GridViewColumn Header="Procent to all filled cells" Width="Auto" DisplayMemberBinding="{Binding procToAll}" />
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </ScrollViewer>
+        <GridSplitter Grid.Column="3" Width="5" HorizontalAlignment="Stretch" />
+        <ScrollViewer Grid.Column="4" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+            <TabControl>
+                <TabItem Header="All">
+                    <ListView Name="lvAllCells">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{x:Static p:Lang.sPositionX}" Width="Auto" DisplayMemberBinding="{Binding tileLocationX}" />
+                                <GridViewColumn Header="{x:Static p:Lang.sPositionY}" Width="Auto" DisplayMemberBinding="{Binding tileLocationY}" />
+                                <GridViewColumn Header="{x:Static p:Lang.sColorId}" Width="Auto" DisplayMemberBinding="{Binding colorId}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Inside">
+                    <ListView Name="lvInsideCells">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{x:Static p:Lang.sPositionX}" Width="Auto" DisplayMemberBinding="{Binding tileLocationX}" />
+                                <GridViewColumn Header="{x:Static p:Lang.sPositionY}" Width="Auto" DisplayMemberBinding="{Binding tileLocationY}" />
+                                <GridViewColumn Header="{x:Static p:Lang.sColorId}" Width="Auto" DisplayMemberBinding="{Binding colorId}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+                <TabItem Header="Outside">
+                    <ListView Name="lvOutsideCells">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="{x:Static p:Lang.sPositionX}" Width="Auto" DisplayMemberBinding="{Binding tileLocationX}" />
+                                <GridViewColumn Header="{x:Static p:Lang.sPositionY}" Width="Auto" DisplayMemberBinding="{Binding tileLocationY}" />
+                                <GridViewColumn Header="{x:Static p:Lang.sColorId}" Width="Auto" DisplayMemberBinding="{Binding colorId}" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </TabItem>
+            </TabControl>
+            
+        </ScrollViewer>        
+    </Grid>    
+</Window>

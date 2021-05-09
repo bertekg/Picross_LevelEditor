@@ -1,0 +1,425 @@
+﻿<Window x:Class="Picross_LevelEditor.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:p="clr-namespace:Picross_LevelEditor.Languages"
+        xmlns:local="clr-namespace:Picross_LevelEditor"
+        mc:Ignorable="d"
+        Title="{x:Static p:Lang.sPicross_LevelEditor}" Icon="Graphics/Icon_LevelEditor_128.png" Width="1280" Height="720" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top">
+                <MenuItem Header="{x:Static p:Lang.sFile}">
+                    <MenuItem Name="miNewProject" Header="{x:Static p:Lang.sNewLevel}" Click="miNewProject_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="44" Height="44">
+                                    <Path Fill="#FF000000">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M 4 1 H 28 L 40 13 V 43 H 4 Z M 8 5 V 39 H 36 V 18 H 23 V 5 Z m 19 0 v 9 h 9 z"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Name="miOpenProject" Header="{x:Static p:Lang.sOpenLevel}" Click="miOpenProject_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="47" Height="47">
+                                    <Path Fill="#FF000000">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 10 37 v -3 h 7 v 3 z m 0 -5 v -3 h 8 v 3 z m 0 -5 v -3 h 10 v 3 z M 4 1 H 27.25 L 40 13.75 V 24.6636 C 38.8303 23.6519 37.4784 22.8454 36 22.2999 V 18 H 23 V 5 H 8 v 34 h 11.2999 c 0.5455 1.4784 1.352 2.8303 2.3637 4 H 4 Z M 27 6.25 V 14 h 7.75 z M 31.5 23 c 1.6764 0 3.269 0.3587 4.7053 1.0036 L 31.5 34.5 42.752 36.8868 C 41.6532 42.0926 37.0329 46 31.5 46 25.1487 46 20 40.8513 20 34.5 20 28.1487 25.1487 23 31.5 23 Z"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Name="miImportFromPictureDirect" Header="Import from picture - Direct" Click="miImportFromPicture_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="24" Height="24">
+                                    <Path Fill="Black" Data="M1,12H10.76L8.26,9.5L9.67,8.08L14.59,13L9.67,17.92L8.26,16.5L10.76,14H1V12M19,3C20.11,3 21,3.9 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V16H5V19H19V7H5V10H3V5A2,2 0 0,1 5,3H19Z" />
+                                    <Ellipse Fill="Black" Margin="13,13,0,0" Width="11" Height="11" StrokeThickness="0"/>
+                                    <TextBlock Text="D" FontSize="8" Margin="13,13,0,0" Width="11" Height="11" TextAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="miImportFromPicturePdf" Header="Import from picture - Big from PDF" Click="MiImportFromPicturePdf_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="24" Height="24">
+                                    <Path Fill="Black" Data="M1,12H10.76L8.26,9.5L9.67,8.08L14.59,13L9.67,17.92L8.26,16.5L10.76,14H1V12M19,3C20.11,3 21,3.9 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V16H5V19H19V7H5V10H3V5A2,2 0 0,1 5,3H19Z" />
+                                    <Ellipse Fill="Black" Margin="13,13,0,0" Width="11" Height="11" StrokeThickness="0"/>
+                                    <TextBlock Text="B" FontSize="8" Margin="13,13,0,0" Width="11" Height="11" TextAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Name="miSaveProject" Header="{x:Static p:Lang.sSaveLevel}" Click="miSaveProject_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="36" Height="36">
+                                    <Path Fill="#FF000000">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M 1 1 H 35 V 35 H 25.727291 V 24.181774 H 10.272709 V 35 H 1 Z m 12.363645 34 v -4.636355 h 6.181774 V 35 Z M 7.1818715 4.090936 v 9.272709 H 28.818129 V 4.090936 Z"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="miSaveAsProject" Header="{x:Static p:Lang.sSaveLevelAs3xDot}" Click="miSaveAsProject_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="36" Height="36">
+                                    <Path Fill="#FF000000">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M 1 1 H 35 V 35 H 25.727291 V 24.181774 H 10.272709 V 35 H 1 Z m 12.363645 34 v -4.636355 h 6.181774 V 35 Z M 7.1818715 4.090936 v 9.272709 H 28.818129 V 4.090936 Z"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path StrokeThickness="3" Stroke="#FFFFFFFF">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 26.5 29.5 h 8"/>
+                                        </Path.Data>
+                                    </Path>
+                                    <Path StrokeThickness="3" Stroke="#FFFFFFFF">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 30.5 25.5 v 8"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Name="miExportToPng" Header="Export to PNG" Click="miExportToPng_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="24" Height="24">
+                                    <Path Fill="Black"  Data="M8,12H17.76L15.26,9.5L16.67,8.08L21.59,13L16.67,17.92L15.26,16.5L17.76,14H8V12M19,3C20.11,3 21,3.9 21,5V9.67L19,7.67V7H5V19H19V18.33L21,16.33V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H19Z"/>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <Separator/>
+                    <MenuItem Name="miExit" Header="{x:Static p:Lang.sExit}" Click="miExit_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="40" Height="40">
+                                    <Path Fill="#FF000000">
+                                        <Path.Data>
+                                            <PathGeometry Figures="m 19 1 c 1.1046 0 2 0.8954 2 2 0 0.8215 -0.7453 1.5274 -1.4536 1.8352 l 0.537 5.1653 c 3.8275 0.0447 6.9165 3.1614 6.9165 6.9995 L 27 20 h -1.0001 c 2.2092 0 4 1.7909 4 4 v 2 c 0 2.2091 -1.7907 3.9999 -3.9997 4 H 27 v 7.6003 C 25.1755 38.4503 22.2712 39 19 39 15.7288 39 12.8245 38.4503 11 37.6003 V 30 h 0.9997 C 9.7907 29.9999 8 28.2091 8 26 v -2 c 0 -2.2091 1.7908 -4 4 -4 h -1 v -3 c 0 -3.8381 3.089 -6.9548 6.9166 -6.9995 l 0.537 -5.1653 C 17.7453 4.5274 17 3.8215 17 3 17 1.8954 17.8954 1 19 1 Z m 6.9999 20.0001 h -14 c -1.6568 0 -3 1.3431 -3 3 v 2 c 0 1.6568 1.3432 3 3 3 h 14 c 1.6568 0 3 -1.3432 3 -3 v -2 c 0 -1.6569 -1.3432 -3 -3 -3 z M 19 31.25 18 31.0145 V 33 h 2 V 31.0145 Z M 25.9999 33 C 26 31 25.2371 31.323 24 30.9954 V 33 Z M 21 31.0609 V 33 h 2 V 31.0331 Z M 15 31.0331 V 33 h 2 V 31.0609 Z M 12 33 h 2 V 30.9954 C 12.7628 31.323 12 31 12 33 Z m 7 3 1 -0.0228 V 34 h -2 v 1.9772 z m 6.6475 -2 H 24 v 1.1936 C 24.7917 34.8545 25.3305 34.4373 25.6475 34 Z M 21 34 v 1.9024 c 0.7607 -0.0794 1.4253 -0.2043 2 -0.363 V 34 Z m -6 0 v 1.5 h -0.1384 c 0.6057 0.1776 1.3158 0.3165 2.1384 0.4024 V 34 Z m -2.6477 0 c 0.3171 0.4373 0.8559 0.8545 1.6477 1.1936 V 34 Z M 14 24 h 2 v 2 h -2 z m 8 0 h 2 v 2 H 22 Z M 11.9999 22.0001 h 1.1962 C 12.1797 22.6125 11.5 23.7269 11.5 25 c 0 1.2732 0.6798 2.3876 1.6963 3.0001 h -1.1964 c -1.1045 0 -2 -0.8955 -2 -2 v -2 c 0 -1.1046 0.8955 -2 2 -2 z m 14 0 c 1.1045 0 2 0.8954 2 2 v 2 c 0 1.1045 -0.8955 2 -2 2 H 24.8037 C 25.8202 27.3876 26.5 26.2732 26.5 25 c 0 -1.2731 -0.6798 -2.3875 -1.6961 -2.9999 z m -9.1962 6 C 17.8202 27.3876 18.5 26.2732 18.5 25 c 0 -1.2731 -0.6798 -2.3875 -1.6961 -2.9999 h 4.3922 C 20.1797 22.6125 19.5 23.7269 19.5 25 c 0 1.2732 0.6798 2.3876 1.6963 3.0001 z"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{x:Static p:Lang.sView}">
+                    <MenuItem Name="miShowGridLines" Header="{x:Static p:Lang.sShowGridLines}" IsCheckable="True" IsChecked="True" Click="miShowGridLines_Click"/>
+                    <MenuItem Name="miShowCellsTextInfo" Header="{x:Static p:Lang.sShowCellsTextInfo}" IsCheckable="True" IsChecked="True" Click="miShowCellsTextInfo_Click"/>
+                    <Separator/>
+                    <MenuItem Name="miSetDefoultView" Header="{x:Static p:Lang.sSetDefoultView}" Click="miSetDefoultView_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="40" Height="40">
+                                    <Path Fill="#FF000000">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M 36 36 V 22 H 15 V 36 Z M 39 16 V 39 H 12 V 16 Z M 25 7 H 4 v 14 h 5 v 3 H 1 V 1 h 27 v 12 h -3 z"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Program Mode">
+                    <MenuItem x:Name="miSimple" IsCheckable="True" IsChecked="True" Click="miSimple_Click">
+                        <MenuItem.Header>
+                            <TextBlock Grid.Column="1" Text="Single" VerticalAlignment="Center"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem x:Name="miMultiple" IsCheckable="True" IsChecked="False" Click="miMultiple_Click">
+                        <MenuItem.Header>
+                            <TextBlock Grid.Column="1" Text="Multiple" VerticalAlignment="Center"/>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="Tools">
+                    <MenuItem Name="miCellsInformation" Header="Level Detail" Click="MiCellsInformation_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="24" Height="24">
+                                    <Path Fill="Black" Data="M19,3H14.82C14.25,1.44 12.53,0.64 11,1.2C10.14,1.5 9.5,2.16 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7M17,11H7V9H17V11M15,15H7V13H15V15Z"/>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="miDeleteAllCells" Header="{x:Static p:Lang.sDeletaAllCells}"  Click="miDeleteAllCells_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="38" Height="38">
+                                    <Path Fill="Black">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M 6.2000014 4.999966 H 31.8001 c 0.883605 0 1.1999 3.6 1.1999 3.6 H 5 c 0 0 0.3163962 -3.6 1.2000014 -3.6 z M 16.600048 1 h 4.800005 c 0.441803 0 1.599969 1.158164 1.599969 1.599966 0 0.441802 -1.158166 1.600068 -1.599969 1.600068 h -4.800005 c -0.441803 0 -1.60007 -1.158266 -1.60007 -1.600068 C 14.999978 2.158164 16.158245 1 16.600048 1 Z M 8.6000043 9.799966 H 29.399996 c 0.883706 0 1.600069 0.716362 1.600069 1.600068 l -1.600069 24 C 29.399996 36.283638 28.683734 37 27.800027 37 H 10.200074 C 9.3163673 37 8.6000043 36.283638 8.6000043 35.400034 l -1.5999682 -24 c 0 -0.883706 0.716363 -1.600068 1.5999682 -1.600068 z M 11.000007 13 11.400075 33.799966 h 2.79997 L 13.800078 13 Z m 6.400075 0 v 20.799966 h 3.199937 V 13 Z m 6.799941 0 -0.399967 20.799966 h 2.79997 L 27.000094 13 Z"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="miPreviewLevel" Header="{x:Static p:Lang.sPreviewLevel}"  Click="miPreviewLevel_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="24" Height="24">
+                                    <Path Fill="Black" Data="M19,3H14.82C14.25,1.44 12.53,0.64 11,1.2C10.14,1.5 9.5,2.16 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7M10,17V9L15,13L10,17Z" />
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{x:Static p:Lang.sLanguage}">
+                    <MenuItem x:Name="miLangPol" IsCheckable="True" IsChecked="False" Click="miLangPol_Click">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="Graphics/Lang_Polish.png" Height="16" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" Text="Polski" VerticalAlignment="Center"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                    <MenuItem x:Name="miLangEng" IsCheckable="True" IsChecked="True" Click="miLangEng_Click">
+                        <MenuItem.Header>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Image Source="Graphics/Lang_English.png" Height="16" Margin="5,0,5,0"/>
+                                <TextBlock Grid.Column="1" Text="English" VerticalAlignment="Center"/>
+                            </Grid>
+                        </MenuItem.Header>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{x:Static p:Lang.sHelp}">
+                    <MenuItem Name="miOpenManual" Header="{x:Static p:Lang.sOpenManual}" Click="miOpenManual_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="40" Height="40">
+                                    <Path Fill="#FF000000">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M 7 9 28 1 V 4.25 L 10.5 11 13.75 13.25 33 5.75 V 30.5 L 13.75 39 7 34 Z m 16.8929 19.0327 c -0.992 0.387 -1.7962 1.5049 -1.7962 2.4969 0 0.992 0.8042 1.4825 1.7962 1.0955 0.992 -0.387 1.7962 -1.5049 1.7962 -2.4969 0 -0.9921 -0.8042 -1.4825 -1.7962 -1.0955 z m 0.3592 -14.5099 c -3.1744 1.2384 -5.7479 4.6549 -5.7479 7.631 v 0.7185 l 3.5925 -1.4015 v -1.0777 c 0 -1.1904 0.965 -2.5319 2.1554 -2.9963 1.1904 -0.4644 2.1555 0.1241 2.1555 1.3145 0 0.5192 0 0.7185 -1.437 2.7161 -0.7185 0.9988 -2.8739 3.3479 -2.8739 5.7913 v 1.0777 l 3.5924 -1.4014 v -1.437 c 0 -1.1904 0.7185 -2.4357 2.1554 -3.7148 C 29.2815 19.4641 30 17.3876 30 16.3099 30 13.3338 27.4266 12.2844 24.2521 13.5228 Z"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem Name="miAboutProgram" Header="{x:Static p:Lang.sAboutProgram}" Click="miAboutProgram_Click">
+                        <MenuItem.Icon>
+                            <Viewbox Stretch="Uniform" Width="16" Height="16">
+                                <Canvas Width="40" Height="40">
+                                    <Path Fill="#FF000000">
+                                        <Path.Data>
+                                            <PathGeometry Figures="M 20 1 C 30.4934 1 39 9.5066 39 20 39 30.4934 30.4934 39 20 39 9.5066 39 1 30.4934 1 20 1 9.5066 9.5066 1 20 1 Z m -4.75 14.25 v 3.1667 h 3.1666 V 29.5 H 15.25 v 3.1667 H 26.3333 V 29.5 H 23.1666 V 18.4167 15.25 Z m 5.5417 -7.9167 c -1.3117 0 -2.375 1.0634 -2.375 2.375 0 1.3117 1.0633 2.375 2.375 2.375 1.3116 0 2.375 -1.0633 2.375 -2.375 0 -1.3116 -1.0634 -2.375 -2.375 -2.375 z"/>
+                                        </Path.Data>
+                                    </Path>
+                                </Canvas>
+                            </Viewbox>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+            <StackPanel/>
+        </DockPanel>
+        <ToolBar Name="mainToolBar" Grid.Row="1">
+            <Button ToolTip="{x:Static p:Lang.sNewLevel}" Click="miNewProject_Click">
+                <Viewbox Name="vNewProject" Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="44" Height="44">
+                        <Path Fill="#FF000000">
+                            <Path.Data>
+                                <PathGeometry Figures="M 4 1 H 28 L 40 13 V 43 H 4 Z M 8 5 V 39 H 36 V 18 H 23 V 5 Z m 19 0 v 9 h 9 z"/>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="{x:Static p:Lang.sOpenLevel}" Click="miOpenProject_Click">
+                <Viewbox Name="vOpenProject" Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="47" Height="47">
+                        <Path Fill="#FF000000">
+                            <Path.Data>
+                                <PathGeometry Figures="m 10 37 v -3 h 7 v 3 z m 0 -5 v -3 h 8 v 3 z m 0 -5 v -3 h 10 v 3 z M 4 1 H 27.25 L 40 13.75 V 24.6636 C 38.8303 23.6519 37.4784 22.8454 36 22.2999 V 18 H 23 V 5 H 8 v 34 h 11.2999 c 0.5455 1.4784 1.352 2.8303 2.3637 4 H 4 Z M 27 6.25 V 14 h 7.75 z M 31.5 23 c 1.6764 0 3.269 0.3587 4.7053 1.0036 L 31.5 34.5 42.752 36.8868 C 41.6532 42.0926 37.0329 46 31.5 46 25.1487 46 20 40.8513 20 34.5 20 28.1487 25.1487 23 31.5 23 Z"/>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="Import from picture - Direct" Click="miImportFromPicture_Click">
+                <Viewbox Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="24" Height="24">
+                        <Path Fill="Black" Data="M1,12H10.76L8.26,9.5L9.67,8.08L14.59,13L9.67,17.92L8.26,16.5L10.76,14H1V12M19,3C20.11,3 21,3.9 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V16H5V19H19V7H5V10H3V5A2,2 0 0,1 5,3H19Z" />
+                        <Ellipse Fill="Black" Margin="13,13,0,0" Width="11" Height="11" StrokeThickness="0"/>
+                        <TextBlock Text="D" FontSize="8" Margin="13,13,0,0" Width="11" Height="11" TextAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="Import from picture - Big from PDF" Click="MiImportFromPicturePdf_Click">
+                <Viewbox Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="24" Height="24">
+                        <Path Fill="Black" Data="M1,12H10.76L8.26,9.5L9.67,8.08L14.59,13L9.67,17.92L8.26,16.5L10.76,14H1V12M19,3C20.11,3 21,3.9 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V16H5V19H19V7H5V10H3V5A2,2 0 0,1 5,3H19Z" />
+                        <Ellipse Fill="Black" Margin="13,13,0,0" Width="11" Height="11" StrokeThickness="0"/>
+                        <TextBlock Text="B" FontSize="8" Margin="13,13,0,0" Width="11" Height="11" TextAlignment="Center" Foreground="White" FontWeight="Bold"/>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="{x:Static p:Lang.sSaveLevel}" Click="miSaveProject_Click">
+                <Viewbox Name="vSaveProject" Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="36" Height="36">
+                        <Path Fill="#FF000000">
+                            <Path.Data>
+                                <PathGeometry Figures="M 1 1 H 35 V 35 H 25.727291 V 24.181774 H 10.272709 V 35 H 1 Z m 12.363645 34 v -4.636355 h 6.181774 V 35 Z M 7.1818715 4.090936 v 9.272709 H 28.818129 V 4.090936 Z"/>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="{x:Static p:Lang.sSaveLevelAs3xDot}" Click="miSaveAsProject_Click">
+                <Viewbox Name="vSaveAsProject" Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="36" Height="36">
+                        <Path Fill="#FF000000">
+                            <Path.Data>
+                                <PathGeometry Figures="M 1 1 H 35 V 35 H 25.727291 V 24.181774 H 10.272709 V 35 H 1 Z m 12.363645 34 v -4.636355 h 6.181774 V 35 Z M 7.1818715 4.090936 v 9.272709 H 28.818129 V 4.090936 Z"/>
+                            </Path.Data>
+                        </Path>
+                        <Path StrokeThickness="3" Stroke="#FFFFFFFF">
+                            <Path.Data>
+                                <PathGeometry Figures="m 26.5 29.5 h 8"/>
+                            </Path.Data>
+                        </Path>
+                        <Path StrokeThickness="3" Stroke="#FFFFFFFF">
+                            <Path.Data>
+                                <PathGeometry Figures="m 30.5 25.5 v 8"/>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="Export to PNG" Click="miExportToPng_Click">
+                <Viewbox Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="24" Height="24">
+                        <Path Fill="Black"  Data="M8,12H17.76L15.26,9.5L16.67,8.08L21.59,13L16.67,17.92L15.26,16.5L17.76,14H8V12M19,3C20.11,3 21,3.9 21,5V9.67L19,7.67V7H5V19H19V18.33L21,16.33V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5A2,2 0 0,1 5,3H19Z"/>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Separator/>
+            <Button ToolTip="{x:Static p:Lang.sSetDefoultView}"  Click="miSetDefoultView_Click">
+                <Viewbox Name="vSetFefoultView" Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="40" Height="40">
+                        <Path Fill="#FF000000">
+                            <Path.Data>
+                                <PathGeometry Figures="M 36 36 V 22 H 15 V 36 Z M 39 16 V 39 H 12 V 16 Z M 25 7 H 4 v 14 h 5 v 3 H 1 V 1 h 27 v 12 h -3 z"/>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Separator/>
+            <Button ToolTip="Level Detail"  Click="MiCellsInformation_Click">
+                <Viewbox Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="24" Height="24">
+                        <Path Fill="Black" Data="M19,3H14.82C14.25,1.44 12.53,0.64 11,1.2C10.14,1.5 9.5,2.16 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7M17,11H7V9H17V11M15,15H7V13H15V15Z"/>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="{x:Static p:Lang.sDeletaAllCells}"  Click="miDeleteAllCells_Click">
+                <Viewbox Name="vDeleteAllCells" Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="38" Height="38">
+                        <Path Fill="#FF000000">
+                            <Path.Data>
+                                <PathGeometry Figures="M 6.2000014 4.999966 H 31.8001 c 0.883605 0 1.1999 3.6 1.1999 3.6 H 5 c 0 0 0.3163962 -3.6 1.2000014 -3.6 z M 16.600048 1 h 4.800005 c 0.441803 0 1.599969 1.158164 1.599969 1.599966 0 0.441802 -1.158166 1.600068 -1.599969 1.600068 h -4.800005 c -0.441803 0 -1.60007 -1.158266 -1.60007 -1.600068 C 14.999978 2.158164 16.158245 1 16.600048 1 Z M 8.6000043 9.799966 H 29.399996 c 0.883706 0 1.600069 0.716362 1.600069 1.600068 l -1.600069 24 C 29.399996 36.283638 28.683734 37 27.800027 37 H 10.200074 C 9.3163673 37 8.6000043 36.283638 8.6000043 35.400034 l -1.5999682 -24 c 0 -0.883706 0.716363 -1.600068 1.5999682 -1.600068 z M 11.000007 13 11.400075 33.799966 h 2.79997 L 13.800078 13 Z m 6.400075 0 v 20.799966 h 3.199937 V 13 Z m 6.799941 0 -0.399967 20.799966 h 2.79997 L 27.000094 13 Z"/>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="{x:Static p:Lang.sPreviewLevel}"  Click="miPreviewLevel_Click">
+                <Viewbox Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="24" Height="24">
+                        <Path Fill="Black" Data="M19,3H14.82C14.25,1.44 12.53,0.64 11,1.2C10.14,1.5 9.5,2.16 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M7,7H17V5H19V19H5V5H7V7M10,17V9L15,13L10,17Z" />
+                    </Canvas>
+                </Viewbox>
+            </Button>            
+            <Separator/>
+            <Button ToolTip="{x:Static p:Lang.sOpenManual}" Click="miOpenManual_Click">
+                <Viewbox Name="vOpenManual" Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="40" Height="40">
+                        <Path Fill="#FF000000">
+                            <Path.Data>
+                                <PathGeometry Figures="M 7 9 28 1 V 4.25 L 10.5 11 13.75 13.25 33 5.75 V 30.5 L 13.75 39 7 34 Z m 16.8929 19.0327 c -0.992 0.387 -1.7962 1.5049 -1.7962 2.4969 0 0.992 0.8042 1.4825 1.7962 1.0955 0.992 -0.387 1.7962 -1.5049 1.7962 -2.4969 0 -0.9921 -0.8042 -1.4825 -1.7962 -1.0955 z m 0.3592 -14.5099 c -3.1744 1.2384 -5.7479 4.6549 -5.7479 7.631 v 0.7185 l 3.5925 -1.4015 v -1.0777 c 0 -1.1904 0.965 -2.5319 2.1554 -2.9963 1.1904 -0.4644 2.1555 0.1241 2.1555 1.3145 0 0.5192 0 0.7185 -1.437 2.7161 -0.7185 0.9988 -2.8739 3.3479 -2.8739 5.7913 v 1.0777 l 3.5924 -1.4014 v -1.437 c 0 -1.1904 0.7185 -2.4357 2.1554 -3.7148 C 29.2815 19.4641 30 17.3876 30 16.3099 30 13.3338 27.4266 12.2844 24.2521 13.5228 Z"/>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+            <Button ToolTip="{x:Static p:Lang.sAboutProgram}" Click="miAboutProgram_Click">
+                <Viewbox Name="vAboutProgram" Width="24" Height="24" Stretch="Uniform">
+                    <Canvas Width="40" Height="40">
+                        <Path Fill="#FF000000">
+                            <Path.Data>
+                                <PathGeometry Figures="M 20 1 C 30.4934 1 39 9.5066 39 20 39 30.4934 30.4934 39 20 39 9.5066 39 1 30.4934 1 20 1 9.5066 9.5066 1 20 1 Z m -4.75 14.25 v 3.1667 h 3.1666 V 29.5 H 15.25 v 3.1667 H 26.3333 V 29.5 H 23.1666 V 18.4167 15.25 Z m 5.5417 -7.9167 c -1.3117 0 -2.375 1.0634 -2.375 2.375 0 1.3117 1.0633 2.375 2.375 2.375 1.3116 0 2.375 -1.0633 2.375 -2.375 0 -1.3116 -1.0634 -2.375 -2.375 -2.375 z"/>
+                            </Path.Data>
+                        </Path>
+                    </Canvas>
+                </Viewbox>
+            </Button>
+        </ToolBar>
+        <Grid Name="gMainContent" Grid.Row="2">            
+        </Grid>
+        <StatusBar Name="sbBottomInfo" Grid.Row="3">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem>
+                <TextBlock Text="{x:Static p:Lang.sCurrentCell}"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <TextBox x:Name="tbCurrentGrid" Text="X:0, Y:0" VerticalAlignment="Center" IsReadOnly="True"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
+                <TextBlock Text="{x:Static p:Lang.sProjectPath}"/>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="4">
+                <TextBox Name="sbiProjectPath" VerticalAlignment="Center" IsReadOnly="True"/>
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>
